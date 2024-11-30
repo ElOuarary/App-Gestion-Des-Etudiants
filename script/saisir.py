@@ -36,8 +36,12 @@ def age() -> int:
 
 
 def moyenne() -> float:
-    return round(float(valider_input(
-        "Saisie la moyenne de l'étudiant: ",
-        lambda x: x.isdecimal() and  0 <= float(x) <= 20,
-        "La moyenne n'est pas valide."
-    )), 2)
+    return round(
+        float(
+            valider_input(
+                "Saisie la moyenne de l'étudiant: ",
+                lambda x: x.replace(".", "", 1).isdigit() and  0 <= float(x) <= 20,
+                "La moyenne n'est pas valide."
+            )
+            ),
+        2)
