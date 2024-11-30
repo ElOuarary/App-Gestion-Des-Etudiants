@@ -2,6 +2,7 @@
 Ce scipt a pour but d'ajouter etudiants avec leurs informations
 """
 
+"""Importer les modules necessaires"""
 from etudiants import Etudiant
 
 
@@ -12,5 +13,3 @@ def ajouter_étudiant():
     moyenne: float = input("Saisie la moyenne de l'etudiant: ")
     print(f"Etudiant ajouter")
     print(f"{nom} {prénom} {age} {moyenne}")
-
-ajouter_étudiant()
