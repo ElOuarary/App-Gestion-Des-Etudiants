@@ -5,16 +5,16 @@ import saisir
 
 class Etudiant:
     def __init__(self):
-        self.nom: str = saisir.nom()
-        self.prénom: str = saisir.prénom()
+        self.nom: str = saisir.nom().capitalize()
+        self.prénom: str = saisir.prénom().capitalize()
         self.age: int = saisir.age()
         self.moyenne: float = saisir.moyenne()
 
     def modifier_nom(self) -> None:
-        self.nom: str = saisir.nom()
+        self.nom: str = saisir.nom().capitalize()
     
     def modifier_prénom(self) -> None:
-        self.prénom: str = saisir.prénom()
+        self.prénom: str = saisir.prénom().capitalize()
 
     def modifier_nom_compet(self, nom: str, prénom: str) -> None:
         self.modifier_nom(nom)
