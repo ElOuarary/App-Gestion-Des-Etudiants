@@ -4,7 +4,7 @@ import pandas as pd
 from saisir import valider_input
 
 
-def initialiser_fichier(path: str) -> None:
+def initialiser_fichier(path: str) -> str:
     if os.path.exists(path):
         return f"Fichier {path} existe déjà."
     # Initialiser le dataFrame où les informations des étudiants vont être stocké
@@ -12,6 +12,19 @@ def initialiser_fichier(path: str) -> None:
     df = pd.DataFrame(columns=columns)
     df.to_csv(path, mode="a")
     return f"Fichier {path} a été crée"
+
+
+def afficher_fichier(path: str) -> str:
+    if not os.path.exists(path):
+        return f"Fichier {path} n'existe pas."
+    return pd.read_csv(path)
+
+
+def option3(path: str) -> str:
+    if os.path.exists(path):
+        return f"Fichier {path} existe déjà."
+    df: pd.DataFrame = pd.read_csv(path)
+    ajouter_etudiants(df)
 
 
 def main() -> None:
@@ -23,15 +36,20 @@ def main() -> None:
     print("5. Chercher Dans Fichier")
     print("6. Quitter")
 
-    choix: str = valider_input(
-        "Choisir une option: ",
-        lambda x: x.isdigit() and int(x) == 1,
-        "Option non validé."
+    while True:
+        choix: str = valider_input(
+            "Choisir une option: ",
+            lambda x: x.isdigit() and int(x) in range(1, 7),
+            "Option non validé."
         )
     
-    match choix:
-        case "1":
-            print(initialiser_fichier("data/etudiants.csv"))
+        match choix:
+            case "1":
+                print(initialiser_fichier("data/etudiants.csv"))
+            case "2":
+                print(afficher_fichier("data/etudiants.csv"))
+            case "3":
+                print()
 
 
 main()
