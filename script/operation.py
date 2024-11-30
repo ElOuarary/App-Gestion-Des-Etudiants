@@ -27,7 +27,7 @@ def filtrer_age(df: pd.DataFrame, min_age: int, max_age: int = 99) -> pd.DataFra
     return df[max_age >= df["Age"] >= min_age]
 
 
-def filtrer_moyenne(df: pd.DataFrame, min_moyenne: float, max_moyenne: float) -> pd.DataFrame:
+def filtrer_moyenne(df: pd.DataFrame, min_moyenne: float, max_moyenne: float = 20) -> pd.DataFrame:
     return df[max_moyenne >= df["Moyenne"] >= min_moyenne]
 
 
