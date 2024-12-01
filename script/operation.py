@@ -3,14 +3,21 @@ import pandas as pd
 import saisir
 
 
-def ajouter_etudiants(df: pd.DataFrame) -> None:
+def ajouter_etudiants(df: pd.DataFrame) -> str:
     while True:
         étudiant = Etudiant()
         nom: str = étudiant.nom
         prénom: str =  étudiant.prénom
         age: int = étudiant.age
         moyenne: float = étudiant.moyenne
+        nouveau_étudiant = pd.Series({"Nom": nom, "Prénom": prénom, "Age": age, "Moyenne": moyenne})
+        if ((df == nouveau_étudiant).all(axis=1)).any():
+            print(f"Etudiant {nom} {prénom} existe déjà.")
+            continue
         df.loc[len(df)] = [nom, prénom, age, moyenne]
+        print(f"Etudiant {nom} {prénom} ajouté avec succés.")
+
+        
 
 
 def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
