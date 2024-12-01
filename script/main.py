@@ -31,6 +31,7 @@ def option3(path: str) -> str:
     df: pd.DataFrame = pd.read_csv(path)
     operation.ajouter_etudiants(df, path)
 
+
 def option4(path: str) -> str:
     if not os.path.exists(path):
         return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
