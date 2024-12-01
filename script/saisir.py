@@ -28,20 +28,27 @@ def prénom() -> str:
 
 
 def age() -> int:
-    return int(valider_input(
-        "Saisie l'age de l'étudiant: ",
-        lambda x: x.isdigit() and  0 < int(x) < 100,
-        "L'age n'est pas valide."
-    ))
+    while True:
+        try:
+            return int(valider_input(
+                "Saisie l'age de l'étudiant: ",
+                lambda x: x.isdigit() and  0 < int(x) < 100,
+                "L'age n'est pas valide."
+            ))
+        except ValueError:
+            print("Veuillez entrer un nombre entier valide.")
 
 
 def moyenne() -> float:
-    return round(
-        float(
-            valider_input(
-                "Saisie la moyenne de l'étudiant: ",
-                lambda x: x.replace(".", "", 1).isdigit() and  0 <= float(x) <= 20,
-                "La moyenne n'est pas valide."
-            )
-            ),
-        2)
+    while True:
+        try:
+            return round(float(
+                        valider_input(
+                            "Saisie la moyenne de l'étudiant: ",
+                            lambda x: x.replace(".", "", 1).isdigit() and  0 <= float(x) <= 20,
+                            "La moyenne n'est pas valide."
+                        )
+                        ),
+                    2)
+        except ValueError:
+            print("Veuillez entrer un nombre decimal valide.")

@@ -1,8 +1,9 @@
-from operation import ajouter_etudiants
+import operation
 import os
 import pandas as pd
 from saisir import valider_input
 import sys
+import time
 
 
 def menu_option(*args) -> None:
@@ -28,7 +29,13 @@ def option3(path: str) -> str:
     if not os.path.exists(path):
         return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
     df: pd.DataFrame = pd.read_csv(path)
-    ajouter_etudiants(df, path)
+    operation.ajouter_etudiants(df, path)
+
+def option4(path: str) -> str:
+    if not os.path.exists(path):
+        return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
+    df: pd.DataFrame = pd.read_csv(path)
+    operation.chercher_etudiant(df)
 
 
 def main() -> None:
@@ -57,8 +64,11 @@ def main() -> None:
                 print(option2("data/etudiants.csv"))
             case "3":
                 option3("data/etudiants.csv")
+            case "4":
+                print(option4("data/etudiants.csv"))
             case "5":
-                print("Fermeture d'application")
+                print("Fermeture d'application...")
+                time.sleep(5)
                 sys.exit()
 
 main()

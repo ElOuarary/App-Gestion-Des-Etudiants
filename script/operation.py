@@ -30,7 +30,10 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
 def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
     nom: str = saisir.nom()
     prénom: str = saisir.prénom()
-    return df[(df["Nom"]==nom) & (df["Prénom"]==prénom)]
+    étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].all().all()
+    if étudiant_existe:
+        return étudiant_existe
+    return "L'etudiant {nom} {prénom} n'existe pas dans la liste."
 
 
 def filtrer_nom(df: pd.DataFrame, nom: str) -> pd.DataFrame:
