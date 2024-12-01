@@ -1,9 +1,10 @@
 from etudiants import Etudiant
+import keyboard
 import pandas as pd
 import saisir
 
 
-def ajouter_etudiants(df: pd.DataFrame) -> str:
+def ajouter_etudiants(df: pd.DataFrame) -> None:
     while True:
         étudiant = Etudiant()
         nom: str = étudiant.nom
@@ -17,7 +18,10 @@ def ajouter_etudiants(df: pd.DataFrame) -> str:
         df.loc[len(df)] = [nom, prénom, age, moyenne]
         print(f"Etudiant {nom} {prénom} ajouté avec succés.")
 
-        
+        print(f"Si tu veux ajouter un autre étudiant clique sur 'entrée', sinon clique sur n'import quelle touche")
+        if not keyboard.is_pressed("enter"):
+            break
+
 
 
 def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
