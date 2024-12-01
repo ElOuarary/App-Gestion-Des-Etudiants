@@ -15,7 +15,7 @@ def option1(path: str) -> str:
     # Initialiser le dataFrame où les informations des étudiants vont être stocké
     columns: list[str] = ["Nom", "Prénom", "Age", "Moyenne"]
     df = pd.DataFrame(columns=columns)
-    df.to_csv(path, mode="a")
+    df.to_csv(path, index=False)
     return f"Fichier {path} a été crée"
 
 
