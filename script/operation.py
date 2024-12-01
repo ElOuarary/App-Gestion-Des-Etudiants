@@ -12,10 +12,10 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
         age: int = étudiant.age
         moyenne: float = étudiant.moyenne
         nouveau_étudiant = pd.Series({"Nom": nom, "Prénom": prénom, "Age": age, "Moyenne": moyenne})
-        if ((df == nouveau_étudiant).all(axis=1)).any():
+        if (df.apply(lambda row: row.equals(nouveau_étudiant), axis=1)).any():
             print(f"Etudiant {nom} {prénom} existe déjà.")
             continue
-        df.loc[len(df)] = [nom, prénom, age, moyenne]
+        df = pd.concat([df, nouveau_étudiant.to_frame().T], ignore_index=False)
         print(f"Etudiant {nom} {prénom} ajouté avec succés.")
 
         print(f"Si tu veux ajouter un autre étudiant clique sur 'entrée', sinon clique sur n'import quelle touche")
