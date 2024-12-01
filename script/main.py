@@ -5,6 +5,9 @@ from saisir import valider_input
 import sys
 
 
+def menu_option(*args) -> None:
+    return "\n".join(args)
+
 def option1(path: str) -> str:
     if os.path.exists(path):
         return f"Fichier {path} existe déjà."
@@ -29,18 +32,21 @@ def option3(path: str) -> str:
 
 
 def main() -> None:
-    print("Menu:\n")
-    print("1. Initialiser Fichier")
-    print("2. Afficher Fichier")
-    print("3. Ajouter Etudiants")
-    print("4. Chercher Etudiants")
-    print("5. Chercher Dans Fichier")
-    print("6. Quitter")
-
+    print(
+        menu_option(
+            "Menu \n",
+            "1. Initialiser Fichier",
+            "2. Afficher Fichier",
+            "3. Ajouter Etudiant",
+            "4. Rechercher Etudiant",
+            "5. Quitter"
+                    )
+        )
+ 
     while True:
         choix: str = valider_input(
             "Choisir une option: ",
-            lambda x: x.isdigit() and int(x) in range(1, 7),
+            lambda x: x.isdigit() and int(x) in range(1, 6),
             "Option non validé."
         )
     
@@ -51,7 +57,7 @@ def main() -> None:
                 print(option2("data/etudiants.csv"))
             case "3":
                 option3("data/etudiants.csv")
-            case "6":
+            case "5":
                 print("Fermeture d'application")
                 sys.exit()
 

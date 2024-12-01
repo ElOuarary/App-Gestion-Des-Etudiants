@@ -19,10 +19,12 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
         print(f"Etudiant {nom} {prénom} ajouté avec succés.")
 
         print(f"Si tu veux ajouter un autre étudiant clique sur 'entrée', sinon clique sur n'import quelle touche")
-        if not keyboard.is_pressed("enter"):
-            break
-    df.to_csv(path)
-
+        while True:
+            if keyboard.is_pressed("enter"):
+                break
+            elif not keyboard.is_pressed("enter"):
+                df.to_csv(path)
+                return
 
 
 def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
