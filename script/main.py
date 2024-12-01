@@ -2,6 +2,7 @@ from operation import ajouter_etudiants
 import os
 import pandas as pd
 from saisir import valider_input
+import sys
 
 
 def option1(path: str) -> str:
@@ -21,10 +22,10 @@ def option2(path: str) -> str:
 
 
 def option3(path: str) -> str:
-    if os.path.exists(path):
-        return f"Fichier {path} existe déjà."
+    if not os.path.exists(path):
+        return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
     df: pd.DataFrame = pd.read_csv(path)
-    ajouter_etudiants(df)
+    ajouter_etudiants(df, path)
 
 
 def main() -> None:
@@ -49,7 +50,9 @@ def main() -> None:
             case "2":
                 print(option2("data/etudiants.csv"))
             case "3":
-                print(option3("data/etudiants.csv"))
-
+                option3("data/etudiants.csv")
+            case "6":
+                print("Fermeture d'application")
+                sys.exit()
 
 main()

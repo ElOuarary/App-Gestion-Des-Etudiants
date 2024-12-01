@@ -14,7 +14,7 @@ def valider_input(message: str, f_validation, message_erreur):
 def nom() -> str:
     return valider_input(
         "Saisie le nom de l'étudiant: ",
-        lambda x: x.isalpha(),
+        lambda x: x.replace(" ", "").isalpha(),
         "Le nom n'est pas valide."
     )
 
@@ -22,7 +22,7 @@ def nom() -> str:
 def prénom() -> str:
     return valider_input(
         "Saisie le prénom de l'étudiant: ",
-        lambda x: x.isalpha(),
+        lambda x: x.replace(" ", "").isalpha(),
         "Le prénom n'est pas valide."
     )
 

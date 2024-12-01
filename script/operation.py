@@ -4,7 +4,7 @@ import pandas as pd
 import saisir
 
 
-def ajouter_etudiants(df: pd.DataFrame) -> None:
+def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
     while True:
         étudiant = Etudiant()
         nom: str = étudiant.nom
@@ -21,6 +21,7 @@ def ajouter_etudiants(df: pd.DataFrame) -> None:
         print(f"Si tu veux ajouter un autre étudiant clique sur 'entrée', sinon clique sur n'import quelle touche")
         if not keyboard.is_pressed("enter"):
             break
+    df.to_csv(path)
 
 
 
