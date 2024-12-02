@@ -1,11 +1,12 @@
 """
 Ce script valide les inputs de l'utilisateur en fonction du type de valeur attendue.
 """
-
+from time import sleep
 
 def valider_input(message: str, f_validation, message_erreur):
     while True:
         valeur = input(message).strip()
+        sleep(0.5)
         if f_validation(valeur):
             return valeur
         print(message_erreur)
