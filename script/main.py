@@ -22,7 +22,7 @@ def option1(path: str) -> str:
 
 def option2(path: str) -> str:
     if not os.path.exists(path):
-        return f"Ce tableau n'existe pas"
+        return f"Le tableau n'est pas crée vous devez crée un."
     return pd.read_csv(path)
 
 
@@ -66,13 +66,11 @@ def main() -> None:
     
         match choix:
             case "1":
-                tableau: str = input("Saisie le nom du tableau: ")
-                interface("Création du tableau...", 1.5, option1(f"data/{tableau}.csv"))
+                interface("Création du tableau...", 1.5, option1("data/etudiants.csv"))
             case "2":
-                tableau: str = input("Saisie le nom du tableau que vous voulez afficher: ")
-                interface("Affichage de tableau...", 1.5, option2(f"data/{tableau}.csv"))
+                interface("Affichage de tableau...", 1.5, option2("data/etudiants.csv"))
             case "3":
-                option3("data/etudiants.csv")
+                print(option3("data/etudiants.csv"))
             case "4":
                 print(option4("data/etudiants.csv"))
             case "5":
