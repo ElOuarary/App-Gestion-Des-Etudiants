@@ -36,7 +36,7 @@ def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
     prénom: str = saisir.prénom()
     étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].all().all()
     if étudiant_existe:
-        return étudiant_existe
+        return f"{df[(df["Nom"]==nom) & (df["Prénom"]==prénom)]}"
     return "L'etudiant {nom} {prénom} n'existe pas dans la liste."
 
 

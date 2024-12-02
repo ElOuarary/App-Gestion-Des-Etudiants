@@ -36,7 +36,7 @@ def option4(path: str) -> str:
     if not os.path.exists(path):
         return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
     df: pd.DataFrame = pd.read_csv(path)
-    operation.chercher_etudiant(df)
+    return operation.chercher_etudiant(df)
 
 
 def main() -> None:
@@ -69,7 +69,7 @@ def main() -> None:
                 print(option4("data/etudiants.csv"))
             case "5":
                 print("Fermeture d'application...")
-                time.sleep(5)
+                time.sleep(2.5)
                 sys.exit()
 
 main()

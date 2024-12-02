@@ -8,20 +8,20 @@ class Etudiant:
     Représente un étudiant avec des méthodes pour modifier ses informations.
     """
     def __init__(self, nom: str = None, prénom: str = None, age: int = None, moyenne: float =  None):
-        self.nom: str = nom if nom else saisir.nom().capitalize()
-        self.prénom: str = prénom if prénom else saisir.prénom().capitalize()
+        self.nom: str = nom if nom else saisir.nom()
+        self.prénom: str = prénom if prénom else saisir.prénom()
         self.age: int = age if age else saisir.age()
         self.moyenne: float = moyenne if moyenne else saisir.moyenne()
 
     def modifier_nom(self) -> None:
-        self.nom: str = saisir.nom().capitalize()
+        self.nom: str = saisir.nom()
     
     def modifier_prénom(self) -> None:
-        self.prénom: str = saisir.prénom().capitalize()
+        self.prénom: str = saisir.prénom()
 
     def modifier_nom_compet(self) -> None:
-        self.nom: str = saisir.nom().capitalize()
-        self.prénom: str = saisir.prénom().capitalize()
+        self.nom: str = saisir.nom()
+        self.prénom: str = saisir.prénom()
 
     def modifier_age(self) -> None:
         self.age: int = saisir.age()
