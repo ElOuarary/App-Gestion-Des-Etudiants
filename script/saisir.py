@@ -16,7 +16,7 @@ def nom() -> str:
         "Saisie le nom de l'étudiant: ",
         lambda x: x.replace(" ", "").isalpha(),
         "Le nom n'est pas valide."
-    ).capitalize()
+    ).title()
 
 
 def prénom() -> str:
@@ -24,7 +24,7 @@ def prénom() -> str:
         "Saisie le prénom de l'étudiant: ",
         lambda x: x.replace(" ", "").isalpha(),
         "Le prénom n'est pas valide."
-    ).capitalize()
+    ).title()
 
 
 def age() -> int:

@@ -11,12 +11,12 @@ def menu_option(*args) -> None:
 
 def option1(path: str) -> str:
     if os.path.exists(path):
-        return f"Fichier {path} existe déjà."
+        return f"Le tableau existe déjà."
     # Initialiser le dataFrame où les informations des étudiants vont être stocké
     columns: list[str] = ["Nom", "Prénom", "Age", "Moyenne"]
     df = pd.DataFrame(columns=columns)
     df.to_csv(path, index=False)
-    return f"Fichier {path} a été crée"
+    return f"Le Tableau a été crée."
 
 
 def option2(path: str) -> str:
@@ -60,6 +60,8 @@ def main() -> None:
     
         match choix:
             case "1":
+                print("Création du tableau...")
+                time.sleep(1.5)
                 print(option1("data/etudiants.csv"))
             case "2":
                 print(option2("data/etudiants.csv"))
@@ -69,7 +71,7 @@ def main() -> None:
                 print(option4("data/etudiants.csv"))
             case "5":
                 print("Fermeture d'application...")
-                time.sleep(2.5)
+                time.sleep(1.5)
                 sys.exit()
 
 main()
