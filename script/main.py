@@ -46,6 +46,12 @@ def option5(path: str) -> str:
     return operation.calculer_moyenne_génerale(df)
 
 
+def option6(path: str) -> str:
+    if not os.path.exists(path):
+        return f"Il n'y a aucun tableau à supprimer."
+    os.remove(path)
+    return f"Le tableau a été supprimer."
+
 def interface(message: str, durée: int, fonction):
     print(message)
     sleep(durée)
@@ -60,14 +66,15 @@ def main() -> None:
             "3. Ajouter Etudiant",
             "4. Rechercher Etudiant",
             "5. Calculer Moyenne Génerale",
-            "6. Quitter"
+            "6. Supprimer Tableau",
+            "7. Quitter"
                     )
         )
  
     while True:
         choix: str = valider_input(
             "Choisir une option: ",
-            lambda x: x.isdigit() and int(x) in range(1, 6),
+            lambda x: x.isdigit() and int(x) in range(1, 8),
             "Option non validé."
         )
     
@@ -83,6 +90,8 @@ def main() -> None:
             case "5":
                 interface("Calcule de moyenne génerale des étudiants...", 1, option5("data/etudiants.csv"))
             case "6":
+                interface("Supprimage de tableau en cours...", 1, option6("data/etudiants.csv"))
+            case "7":
                 print("Fermeture d'application...")
                 sleep(1.5)
                 sys.exit()
