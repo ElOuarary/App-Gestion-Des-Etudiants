@@ -39,6 +39,12 @@ def option4(path: str) -> str:
     df: pd.DataFrame = pd.read_csv(path)
     return operation.chercher_etudiant(df)
 
+def option5(path: str) -> str:
+    if not os.path.exists(path):
+        return f"Vous devez initialiser un tableau."
+    df: pd.DataFrame = pd.read_csv(path)
+    return operation.calculer_moyenne_génerale(df)
+
 
 def interface(message: str, durée: int, fonction):
     print(message)
@@ -53,7 +59,8 @@ def main() -> None:
             "2. Afficher Tableau",
             "3. Ajouter Etudiant",
             "4. Rechercher Etudiant",
-            "5. Quitter"
+            "5. Calculer Moyenne Génerale",
+            "6. Quitter"
                     )
         )
  
@@ -74,6 +81,8 @@ def main() -> None:
             case "4":
                 print(option4("data/etudiants.csv"))
             case "5":
+                interface("Calcule de moyenne génerale des étudiants...", 1, option5("data/etudiants.csv"))
+            case "6":
                 print("Fermeture d'application...")
                 sleep(1.5)
                 sys.exit()
