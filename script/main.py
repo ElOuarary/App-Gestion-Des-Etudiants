@@ -10,6 +10,12 @@ def menu_option(*args) -> None:
     return "\n".join(args)
 
 
+def interface(message: str, durée: int, fonction):
+    print(message)
+    sleep(durée)
+    print(fonction)
+
+
 def option1(path: str) -> str:
     if os.path.exists(path):
         return f"Le tableau existe déjà."
@@ -22,9 +28,10 @@ def option1(path: str) -> str:
 
 def option2(path: str) -> str:
     print(menu_option(
-        "1. Afficher Le Tableau Tout Entier.",
-        "2. Afficher Un Etudiant.",
-        "3. Afficher Une Note."
+        "1. Tableau",
+        "2. Etudiant",
+        "3. Note",
+        "4. Retour"
     ))
     while True:
         choix: str = valider_input(
@@ -36,9 +43,16 @@ def option2(path: str) -> str:
         if not os.path.exists(path):
             print(f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier.")
             continue
-
-        
-
+        df: pd.DataFrame =  pd.read_csv(path)
+        match choix:
+            case "1":
+                interface("Affichage du tableau...", 1.5, df)
+            case "2":
+                interface("Affichage...", 1.5, operation.chercher_etudiant(df))
+            case "3":
+                interface("Affichage...", 1.5, operation.chercher_etudiant(df))
+            case "4":
+                pass
 
 
 def option3(path: str) -> str:
@@ -68,18 +82,12 @@ def option6(path: str) -> str:
     return f"Le tableau a été supprimer."
 
 
-def interface(message: str, durée: int, fonction):
-    print(message)
-    sleep(durée)
-    print(fonction)
-
-
 def main() -> None:
     print(
         menu_option(
             "Menu \n",
             "1. Initialiser Tableau",
-            "2. Afficher Tableau",
+            "2. Afficher",
             "3. Ajouter Etudiant",
             "4. Rechercher Etudiant",
             "5. Calculer Moyenne Génerale",
