@@ -39,6 +39,14 @@ def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
     return f"L'etudiant {nom} {prénom} n'existe pas dans la liste."
 
 
+def chercher_note(df: pd.DataFrame) -> pd.DataFrame:
+    moyenne: float = saisir.moyenne()
+    moyenne_existe: bool = df[df["Moyenne"]==moyenne].empty
+    if not moyenne_existe:
+        return f"Le tableau ne contient aucune note {moyenne}"
+    return df[df["Moyenne"]==moyenne]
+
+
 def filtrer_nom(df: pd.DataFrame, nom: str) -> pd.DataFrame:
     return df[df["Nom"] == nom]
 

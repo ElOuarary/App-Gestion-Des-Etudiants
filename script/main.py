@@ -36,7 +36,7 @@ def option2(path: str) -> str:
     while True:
         choix: str = valider_input(
             "Choisir une option: ",
-            lambda x: x.isdigit() and int(x) in range(1, 8),
+            lambda x: x.isdigit() and int(x) in range(1, 5),
             "Option non validé."
         )
         
@@ -52,7 +52,8 @@ def option2(path: str) -> str:
             case "3":
                 interface("Affichage...", 1.5, operation.chercher_etudiant(df))
             case "4":
-                pass
+                print()
+                main()
 
 
 def option3(path: str) -> str:
