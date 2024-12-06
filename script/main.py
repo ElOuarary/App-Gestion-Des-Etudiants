@@ -21,9 +21,24 @@ def option1(path: str) -> str:
 
 
 def option2(path: str) -> str:
-    if not os.path.exists(path):
-        return f"Le tableau n'est pas crée vous devez crée un."
-    return pd.read_csv(path)
+    print(menu_option(
+        "1. Afficher Le Tableau Tout Entier.",
+        "2. Afficher Un Etudiant.",
+        "3. Afficher Une Note."
+    ))
+    while True:
+        choix: str = valider_input(
+            "Choisir une option: ",
+            lambda x: x.isdigit() and int(x) in range(1, 8),
+            "Option non validé."
+        )
+        
+        if not os.path.exists(path):
+            print(f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier.")
+            continue
+
+        
+
 
 
 def option3(path: str) -> str:
@@ -52,10 +67,12 @@ def option6(path: str) -> str:
     os.remove(path)
     return f"Le tableau a été supprimer."
 
+
 def interface(message: str, durée: int, fonction):
     print(message)
     sleep(durée)
     print(fonction)
+
 
 def main() -> None:
     print(
@@ -82,7 +99,7 @@ def main() -> None:
             case "1":
                 interface("Création du tableau...", 1.5, option1("data/etudiants.csv"))
             case "2":
-                interface("Affichage de tableau...", 1.5, option2("data/etudiants.csv"))
+                option2("data/etudiants.csv")
             case "3":
                 print(option3("data/etudiants.csv"))
             case "4":

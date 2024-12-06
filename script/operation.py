@@ -1,5 +1,4 @@
 from etudiants import Etudiant
-import keyboard
 import pandas as pd
 import saisir
 
