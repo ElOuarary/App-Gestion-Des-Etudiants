@@ -37,6 +37,7 @@ def chercher_etudiant(df: pd.DataFrame) -> None:
     if not étudiant_existe:
         print(f"{df[(df["Nom"]==nom) & (df["Prénom"]==prénom)]}")
         modifier_étudiant(df, nom, prénom)
+        modifier_note(df, nom, prénom)
     else:
         print(f"L'etudiant {nom} {prénom} n'existe pas dans le tableau.")
 
@@ -53,7 +54,7 @@ def chercher_note(df: pd.DataFrame) -> pd.DataFrame:
 def modifier_étudiant(df: pd.DataFrame, nom: str, prénom: str):
     while True:
         reponce: str = saisir.valider_input(
-            "Vous voulez modifier [Y/N]: ",
+            f"Vous voulez modifier le nom et le prénom de l'étudiant '{nom} {prénom}' [Y/N]: ",
             lambda x: x.upper() in ["Y", "N"],
             "Option non validé."
         )
@@ -61,9 +62,23 @@ def modifier_étudiant(df: pd.DataFrame, nom: str, prénom: str):
             break
         nouveau_nom: str = saisir.nom()
         nouveau_prénom: str = saisir.prénom()
-        df[df["Nom"]==nom] = nouveau_nom
-        df[df["Prénom"]==prénom] = nouveau_prénom
-        return "Modification avec succée."
+
+        df.loc[df["Nom"]==nom, "Nom"] = nouveau_nom
+        df.loc[df["Prénom"]==prénom, "Prénom"] = nouveau_prénom
+        df.to_csv("data/étudiants.csv", index_label=False, index=False)
+        print("Modification avec succée.")
+        return
+
+
+def modifier_note(df: pd.DataFrame, nom: str, prénom: str):
+    while True:
+        reponce: str = saisir.valider_input(
+            f"Vous voulez modifier la moyenne de l'étudiant '{nom} {prénom}' [Y/N]: ",
+            lambda x: x.upper() in ["Y", "N"],
+            "Option non validé."
+        )
+        if reponce.upper() == "N":
+            break
 
 
 
