@@ -49,10 +49,10 @@ def option2(path: str) -> str:
         match choix:
             case "1":
                 interface("Affichage du tableau...", 1.5, df)
-            case "2":
-                interface("Affichage...", 1.5, operation.chercher_etudiant(df))
+            case "2": 
+                operation.chercher_etudiant(df)
             case "3":
-                interface("Affichage...", 1.5, operation.chercher_note(df))
+                operation.chercher_note(df)
             case "4":
                 pass
         print()
@@ -86,9 +86,9 @@ def option4(path: str) -> str:
         df: pd.DataFrame = pd.read_csv(path)
         match choix:
             case "1":
-                interface("Recherche d'étudiant...", 1, operation.chercher_etudiant(df))
+                operation.chercher_etudiant(df)
             case "2":
-                interface("Recherche de moyenne", 1, operation.chercher_note(df))
+                operation.chercher_note(df)
             case "3":
                 pass
         print()
@@ -108,8 +108,7 @@ def option6(path: str) -> str:
     print(menu_option(
         "1. Tableau",
         "2. Etudiant",
-        "3. Moyenne",
-        "4. Retour"
+        "3. Retour"
     ))
     while True:
         choix: str = valider_input(
@@ -123,10 +122,11 @@ def option6(path: str) -> str:
         df: pd.DataFrame = pd.read_csv(path)
         match choix:
             case "1":
-                interface("Supprimage du tableau...", 1.5, os.remove(path), "Tableau supprimé avec succés.")
+                interface("Supprimage du tableau...", 1.5, os.remove(path))
+                print("Tableau supprimé avec succés.")
             case "2":
                 print(operation.supprimer_étudiants(df))
-            case "4":
+            case "3":
                 pass
         print()
         main()

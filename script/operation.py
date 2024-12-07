@@ -29,21 +29,41 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
                 print(f"Erreur lors de la sauvegarde des données: {e}")
 
 
-def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
+def chercher_etudiant(df: pd.DataFrame) -> None:
     nom: str = saisir.nom()
     prénom: str = saisir.prénom()
     étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].empty
     if not étudiant_existe:
-        return f"{df[(df["Nom"]==nom) & (df["Prénom"]==prénom)]}"
-    return f"L'etudiant {nom} {prénom} n'existe pas dans la liste."
+        print(f"{df[(df["Nom"]==nom) & (df["Prénom"]==prénom)]}")
+        modifier_étudiant(df, nom, prénom)
+    else:
+        print(f"L'etudiant {nom} {prénom} n'existe pas dans le tableau.")
 
 
 def chercher_note(df: pd.DataFrame) -> pd.DataFrame:
     moyenne: float = saisir.moyenne()
     moyenne_existe: bool = df[df["Moyenne"]==moyenne].empty
     if moyenne_existe:
-        return f"Le tableau ne contient aucune moyenne {moyenne}"
-    return df[df["Moyenne"]==moyenne]
+        print(f"Le tableau ne contient aucune moyenne {moyenne}")
+    else:
+        print(df[df["Moyenne"]==moyenne])
+
+
+def modifier_étudiant(df: pd.DataFrame, nom: str, prénom: str):
+    while True:
+        reponce: str = saisir.valider_input(
+            "Vous voulez modifier [Y/N]: ",
+            lambda x: x.upper() in ["Y", "N"],
+            "Option non validé."
+        )
+        if reponce.upper() == "N":
+            break
+        nouveau_nom: str = saisir.nom()
+        nouveau_prénom: str = saisir.prénom()
+        df[df["Nom"]==nom] = nouveau_nom
+        df[df["Prénom"]==prénom] = nouveau_prénom
+        return "Modification avec succée."
+
 
 
 def supprimer_étudiants(df: pd.DataFrame) -> str:
