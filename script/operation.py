@@ -27,7 +27,6 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
                 print("Données sauvegardées avec succès.")
             except Exception as e:
                 print(f"Erreur lors de la sauvegarde des données: {e}")
-            return
 
 
 def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
@@ -52,9 +51,10 @@ def supprimer_étudiants(df: pd.DataFrame) -> str:
     prénom: str = saisir.prénom()
     étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].empty
     if not étudiant_existe:
-        df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index)
+        df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index, inplace=True)
+        df.reset_index(drop=True, inplace=True)
         df.to_csv("data/étudiants.csv")
-        return "L'etudiant {nom} {prénom} a été supprimé du tableau avec succés."
+        return f"L'etudiant {nom} {prénom} a été supprimé du tableau avec succés."
     return f"L'etudiant {nom} {prénom} n'existe pas dans la liste."
 
 

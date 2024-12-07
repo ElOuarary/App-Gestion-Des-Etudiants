@@ -10,11 +10,10 @@ def menu_option(*args) -> None:
     return "\n".join(args)
 
 
-def interface(message: str, durée: int, fonction, information: str = None):
+def interface(message: str, durée: int, fonction):
     print(message)
     sleep(durée)
     print(fonction)
-    print(information if not information else "")
 
 
 def option1(path: str) -> str:
@@ -25,7 +24,7 @@ def option1(path: str) -> str:
     columns: list[str] = ["Nom", "Prénom", "Age", "Moyenne"]
     df = pd.DataFrame(columns=columns)
     df.to_csv(path, index=False)
-    print(f"Le Tableau a été crée.")
+    print(f"Le Tableau a été crée.\n")
     main()
 
 
@@ -45,7 +44,7 @@ def option2(path: str) -> str:
         
         if not os.path.exists(path):
             print(f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier.")
-            continue
+            main()
         df: pd.DataFrame =  pd.read_csv(path)
         match choix:
             case "1":
@@ -55,8 +54,9 @@ def option2(path: str) -> str:
             case "3":
                 interface("Affichage...", 1.5, operation.chercher_note(df))
             case "4":
-                print()
-                main()
+                pass
+        print()
+        main()
 
 
 def option3(path: str) -> str:
@@ -64,13 +64,15 @@ def option3(path: str) -> str:
         return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
     df: pd.DataFrame = pd.read_csv(path)
     operation.ajouter_etudiants(df, path)
+    print()
+    main()
 
 
 def option4(path: str) -> str:
     print(menu_option(
         "1. Etudiant",
         "2. Moyenne",
-        "3.Retour"
+        "3. Retour"
     ))
     while True:
         choix: str = valider_input(
@@ -83,19 +85,23 @@ def option4(path: str) -> str:
             main()
         df: pd.DataFrame = pd.read_csv(path)
         match choix:
-            case 1:
+            case "1":
                 interface("Recherche d'étudiant...", 1, operation.chercher_etudiant(df))
-            case 2:
+            case "2":
                 interface("Recherche de moyenne", 1, operation.chercher_note(df))
-            case 3:
-                main()
+            case "3":
+                pass
+        print()
+        main()
 
 
-def option5(path: str) -> str:
+def option5(path: str) -> None:
     if not os.path.exists(path):
         return f"Vous devez initialiser un tableau."
     df: pd.DataFrame = pd.read_csv(path)
-    return operation.calculer_moyenne_génerale(df)
+    operation.calculer_moyenne_génerale(df)
+    print()
+    main()
 
 
 def option6(path: str) -> str:
@@ -119,19 +125,21 @@ def option6(path: str) -> str:
             case "1":
                 interface("Supprimage du tableau...", 1.5, os.remove(path), "Tableau supprimé avec succés.")
             case "2":
-                pass
+                print(operation.supprimer_étudiants(df))
             case "4":
-                main()
+                pass
+        print()
+        main()
 
 
 def main() -> None:
     print(
         menu_option(
-            "Menu \n",
+            "Menu\n",
             "1. Initialiser Tableau",
             "2. Afficher",
             "3. Ajouter Etudiant",
-            "4. Rechercher Etudiant",
+            "4. Rechercher",
             "5. Calculer Moyenne Génerale",
             "6. Supprimer",
             "7. Quitter"
