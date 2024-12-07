@@ -67,10 +67,29 @@ def option3(path: str) -> str:
 
 
 def option4(path: str) -> str:
-    if not os.path.exists(path):
-        return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
-    df: pd.DataFrame = pd.read_csv(path)
-    return operation.chercher_etudiant(df)
+    print(menu_option(
+        "1. Etudiant",
+        "2. Moyenne",
+        "3.Retour"
+    ))
+    while True:
+        choix: str = valider_input(
+            "Choisir une option: ",
+            lambda x: x.isdigit() and int(x) in range(1, 4),
+            "Option non validé."
+        )
+        if not os.path.exists(path):
+            print(f"Fichier {path} n'existe déjà.\nVous devez créer un fichier.")
+            main()
+        df: pd.DataFrame = pd.read_csv(path)
+        match choix:
+            case 1:
+                interface("Recherche d'étudiant...", 1, operation.chercher_etudiant(df))
+            case 2:
+                interface("Recherche de moyenne", 1, operation.chercher_note(df))
+            case 3:
+                main()
+
 
 def option5(path: str) -> str:
     if not os.path.exists(path):
