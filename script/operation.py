@@ -91,8 +91,7 @@ def filtrer_moyenne(df: pd.DataFrame, min_moyenne: float, max_moyenne: float = 2
     return df[(max_moyenne >= df["Moyenne"]) & (df["Moyenne"]>= min_moyenne)]
 
 
-def calculer_moyenne_génerale(df: pd.DataFrame) -> float:
+def calculer_moyenne_génerale(df: pd.DataFrame) -> None:
     if df.empty:
         print("Aucune donnée disponible pour calculer la moyenne.")
-        return 0.0
-    return f"La moyenne génerale est: {df["Moyenne"].mean()}"
+    print(f"La moyenne génerale est: {df["Moyenne"].mean()}")
