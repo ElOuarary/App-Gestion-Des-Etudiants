@@ -79,6 +79,12 @@ def modifier_note(df: pd.DataFrame, nom: str, prénom: str):
         )
         if reponce.upper() == "N":
             break
+        nouveau_moyenne: float = saisir.moyenne()
+
+        df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), "Moyenne"] = nouveau_moyenne
+        df.to_csv("data/étudiants.csv", index_label=False, index=False)
+        print("Modification avec succée.")
+        return
 
 
 
