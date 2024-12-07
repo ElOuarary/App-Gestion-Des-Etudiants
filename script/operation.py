@@ -42,8 +42,8 @@ def chercher_etudiant(df: pd.DataFrame) -> pd.DataFrame:
 def chercher_note(df: pd.DataFrame) -> pd.DataFrame:
     moyenne: float = saisir.moyenne()
     moyenne_existe: bool = df[df["Moyenne"]==moyenne].empty
-    if not moyenne_existe:
-        return f"Le tableau ne contient aucune note {moyenne}"
+    if moyenne_existe:
+        return f"Le tableau ne contient aucune moyenne {moyenne}"
     return df[df["Moyenne"]==moyenne]
 
 

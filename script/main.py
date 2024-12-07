@@ -10,27 +10,30 @@ def menu_option(*args) -> None:
     return "\n".join(args)
 
 
-def interface(message: str, durée: int, fonction):
+def interface(message: str, durée: int, fonction, information: str = None):
     print(message)
     sleep(durée)
     print(fonction)
+    print(information if not information else "")
 
 
 def option1(path: str) -> str:
     if os.path.exists(path):
-        return f"Le tableau existe déjà."
+        print(f"Le tableau existe déjà.")
+        main()
     # Initialiser le dataFrame où les informations des étudiants vont être stocké
     columns: list[str] = ["Nom", "Prénom", "Age", "Moyenne"]
     df = pd.DataFrame(columns=columns)
     df.to_csv(path, index=False)
-    return f"Le Tableau a été crée."
+    print(f"Le Tableau a été crée.")
+    main()
 
 
 def option2(path: str) -> str:
     print(menu_option(
         "1. Tableau",
         "2. Etudiant",
-        "3. Note",
+        "3. Moyenne",
         "4. Retour"
     ))
     while True:
@@ -50,7 +53,7 @@ def option2(path: str) -> str:
             case "2":
                 interface("Affichage...", 1.5, operation.chercher_etudiant(df))
             case "3":
-                interface("Affichage...", 1.5, operation.chercher_etudiant(df))
+                interface("Affichage...", 1.5, operation.chercher_note(df))
             case "4":
                 print()
                 main()
@@ -77,10 +80,27 @@ def option5(path: str) -> str:
 
 
 def option6(path: str) -> str:
-    if not os.path.exists(path):
-        return f"Il n'y a aucun tableau à supprimer."
-    os.remove(path)
-    return f"Le tableau a été supprimer."
+    print(menu_option(
+        "1. Tableau",
+        "2. Etudiant",
+        "3. Moyenne",
+        "4. Retour"
+    ))
+    while True:
+        choix: str = valider_input(
+            "Choisir une option: ",
+            lambda x: x.isdigit() and int(x) in range(1, 5),
+            "Option non validé."
+        )
+        if not os.path.exists(path):
+            print(f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier.")
+            main()
+        df: pd.DataFrame = pd.read_csv(path)
+        match choix:
+            case "1":
+                interface("Supprimage du tableau...", 1.5, os.remove(path), "Tableau supprimé avec succés.")
+            case "4":
+                main()
 
 
 def main() -> None:
@@ -92,7 +112,7 @@ def main() -> None:
             "3. Ajouter Etudiant",
             "4. Rechercher Etudiant",
             "5. Calculer Moyenne Génerale",
-            "6. Supprimer Tableau",
+            "6. Supprimer",
             "7. Quitter"
                     )
         )
@@ -116,7 +136,7 @@ def main() -> None:
             case "5":
                 interface("Calcule de moyenne génerale des étudiants...", 1, option5("data/etudiants.csv"))
             case "6":
-                interface("Supprimage de tableau en cours...", 1, option6("data/etudiants.csv"))
+                option6("data/etudiants.csv")
             case "7":
                 print("Fermeture d'application...")
                 sleep(1.5)
