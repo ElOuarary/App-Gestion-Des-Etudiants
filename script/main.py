@@ -93,12 +93,14 @@ def option6(path: str) -> str:
             "Option non validé."
         )
         if not os.path.exists(path):
-            print(f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier.")
+            print(f"Fichier {path} n'existe déjà.\nVous devez créer un fichier.")
             main()
         df: pd.DataFrame = pd.read_csv(path)
         match choix:
             case "1":
                 interface("Supprimage du tableau...", 1.5, os.remove(path), "Tableau supprimé avec succés.")
+            case "2":
+                pass
             case "4":
                 main()
 
@@ -126,17 +128,17 @@ def main() -> None:
     
         match choix:
             case "1":
-                interface("Création du tableau...", 1.5, option1("data/etudiants.csv"))
+                interface("Création du tableau...", 1.5, option1("data/étudiants.csv"))
             case "2":
-                option2("data/etudiants.csv")
+                option2("data/étudiants.csv")
             case "3":
-                print(option3("data/etudiants.csv"))
+                print(option3("data/étudiants.csv"))
             case "4":
-                print(option4("data/etudiants.csv"))
+                print(option4("data/étudiants.csv"))
             case "5":
-                interface("Calcule de moyenne génerale des étudiants...", 1, option5("data/etudiants.csv"))
+                interface("Calcule de moyenne génerale des étudiants...", 1, option5("data/étudiants.csv"))
             case "6":
-                option6("data/etudiants.csv")
+                option6("data/étudiants.csv")
             case "7":
                 print("Fermeture d'application...")
                 sleep(1.5)

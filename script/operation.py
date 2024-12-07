@@ -47,6 +47,17 @@ def chercher_note(df: pd.DataFrame) -> pd.DataFrame:
     return df[df["Moyenne"]==moyenne]
 
 
+def supprimer_étudiants(df: pd.DataFrame) -> str:
+    nom: str = saisir.nom()
+    prénom: str = saisir.prénom()
+    étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].empty
+    if not étudiant_existe:
+        df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index)
+        df.to_csv("data/étudiants.csv")
+        return "L'etudiant {nom} {prénom} a été supprimé du tableau avec succés."
+    return f"L'etudiant {nom} {prénom} n'existe pas dans la liste."
+
+
 def filtrer_nom(df: pd.DataFrame, nom: str) -> pd.DataFrame:
     return df[df["Nom"] == nom]
 
