@@ -27,6 +27,7 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
                 print("Données sauvegardées avec succès.")
             except Exception as e:
                 print(f"Erreur lors de la sauvegarde des données: {e}")
+            break
 
 
 def chercher_etudiant(df: pd.DataFrame) -> None:
