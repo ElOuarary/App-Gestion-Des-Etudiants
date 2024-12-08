@@ -95,7 +95,7 @@ def supprimer_étudiants(df: pd.DataFrame) -> str:
     if not étudiant_existe:
         df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index, inplace=True)
         df.reset_index(drop=True, inplace=True)
-        df.to_csv("data/étudiants.csv")
+        df.to_csv("data/étudiants.csv", index_label=False, index=False)
         return f"L'etudiant {nom} {prénom} a été supprimé du tableau avec succés."
     return f"L'etudiant {nom} {prénom} n'existe pas dans la liste."
 

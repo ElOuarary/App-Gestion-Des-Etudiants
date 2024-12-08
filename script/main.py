@@ -43,7 +43,7 @@ def option2(path: str) -> str:
         )
         
         if not os.path.exists(path):
-            print(f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier.")
+            print(f"Vous devez initialiser un tableau.\n")
             main()
         df: pd.DataFrame =  pd.read_csv(path)
         match choix:
@@ -61,7 +61,7 @@ def option2(path: str) -> str:
 
 def option3(path: str) -> str:
     if not os.path.exists(path):
-        return f"Fichier {path} n'existe déjà.\n Vous devez créer un fichier."
+        return f"Vous devez initialiser un tableau.\n"
     df: pd.DataFrame = pd.read_csv(path)
     operation.ajouter_etudiants(df, path)
     print()
@@ -70,7 +70,7 @@ def option3(path: str) -> str:
 
 def option4(path: str) -> str:
     if not os.path.exists(path):
-        print(f"Fichier {path} n'existe déjà.\nVous devez créer un fichier.")
+        print(f"Vous devez initialiser un tableau.\n")
         main()
     df: pd.DataFrame = pd.read_csv(path)
     operation.chercher_etudiant(df)
@@ -80,7 +80,7 @@ def option4(path: str) -> str:
 
 def option5(path: str) -> None:
     if not os.path.exists(path):
-        return f"Vous devez initialiser un tableau."
+        return f"Vous devez initialiser un tableau.\n"
     df: pd.DataFrame = pd.read_csv(path)
     operation.calculer_moyenne_génerale(df)
     print()
@@ -96,11 +96,11 @@ def option6(path: str) -> str:
     while True:
         choix: str = valider_input(
             "Choisir une option: ",
-            lambda x: x.isdigit() and int(x) in range(1, 5),
+            lambda x: x.isdigit() and int(x) in range(1, 4),
             "Option non validé."
         )
         if not os.path.exists(path):
-            print(f"Fichier {path} n'existe déjà.\nVous devez créer un fichier.")
+            print("Vous devez initialiser un tableau.\n")
             main()
         df: pd.DataFrame = pd.read_csv(path)
         match choix:
