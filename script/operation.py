@@ -82,20 +82,20 @@ def modifier_note(df: pd.DataFrame, nom: str, prénom: str):
 
         df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), "Moyenne"] = nouveau_moyenne
         df.to_csv("data/étudiants.csv", index_label=False, index=False, encoding="utf-8")
-        print("Modification avec succée.")
+        print("Modification avec succée.\n")
         return
 
 
-def supprimer_étudiants(df: pd.DataFrame) -> str:
+def supprimer_étudiants(df: pd.DataFrame) -> None:
     nom: str = saisir.nom()
     prénom: str = saisir.prénom()
     étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].empty
     if not étudiant_existe:
         df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index, inplace=True)
         df.reset_index(drop=True, inplace=True)
-        df.to_csv("data/étudiants.csv", index_label=False, index=False, incoding="utf-8")
-        return f"L'etudiant {nom} {prénom} a été supprimé du tableau avec succés."
-    return f"L'etudiant {nom} {prénom} n'existe pas dans la liste."
+        df.to_csv("data/étudiants.csv", index_label=False, index=False, encoding="utf-8")
+        print(f"L'etudiant {nom} {prénom} a été supprimé du tableau avec succés.\n")
+    print(f"L'etudiant {nom} {prénom} n'existe pas dans la liste.\n")
 
 
 def filtrer_nom(df: pd.DataFrame, nom: str) -> pd.DataFrame:

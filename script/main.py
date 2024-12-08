@@ -15,9 +15,9 @@ def interface(message: str, durée: int):
     sleep(durée)
 
 
-def option1(path: str) -> str:
+def option1(path: str) -> None:
     if os.path.exists(path):
-        print(f"Le tableau existe déjà.")
+        print(f"Le tableau existe déjà.\n")
         return
     # Initialiser le dataFrame où les informations des étudiants vont être stocké
     columns: list[str] = ["Nom", "Prénom", "Age", "Moyenne"]
@@ -26,7 +26,7 @@ def option1(path: str) -> str:
     print(f"Le Tableau a été crée.\n")
 
 
-def option2(path: str) -> str:
+def option2(path: str) -> None:
     if not os.path.exists(path):
         print(f"Vous devez initialiser un tableau.\n")
         return
@@ -55,6 +55,7 @@ def option2(path: str) -> str:
             case "3":
                 operation.chercher_note(df)
             case "4":
+                print()
                 return
 
 
@@ -66,7 +67,7 @@ def option3(path: str) -> None:
     operation.ajouter_etudiants(df, path)
 
 
-def option4(path: str) -> str:
+def option4(path: str) -> None:
     if not os.path.exists(path):
         print(f"Vous devez initialiser un tableau.\n")
         return
@@ -101,11 +102,13 @@ def option6(path: str) -> str:
         df: pd.DataFrame = pd.read_csv(path)
         match choix:
             case "1":
-                interface("Supprimage du tableau...", 1.5, os.remove(path))
-                print("Tableau supprimé avec succés.")
+                interface("Supprimage du tableau...", 1.5)
+                os.remove(path)
+                print("Tableau supprimé avec succés.\n")
             case "2":
-                print(operation.supprimer_étudiants(df))
+                operation.supprimer_étudiants(df)
             case "3":
+                print()
                 return
 
 
@@ -138,9 +141,9 @@ def main() -> None:
             case "2":
                 option2(path)
             case "3":
-                print(option3(path))
+                option3(path)
             case "4":
-                print(option4(path))
+                option4(path)
             case "5":
                 interface("Calcule de moyenne génerale des étudiants...", 1)
                 option5(path)
