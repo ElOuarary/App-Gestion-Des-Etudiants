@@ -23,10 +23,10 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
         continuer = input("Appuyez sur 'Entrée' pour continuer ou une autre touche pour quitter: ")
         if continuer.strip() != "":
             try:
-                df.to_csv(path, index=False)
+                df.to_csv(path, index=False, encoding="utf-8")
                 print("Données sauvegardées avec succès.")
             except Exception as e:
-                print(f"Erreur lors de la sauvegarde des données: {e}")
+                print(f"Erreur lors de la sauvegarde : {e}")
             break
 
 
@@ -63,9 +63,8 @@ def modifier_étudiant(df: pd.DataFrame, nom: str, prénom: str):
         nouveau_nom: str = saisir.nom()
         nouveau_prénom: str = saisir.prénom()
 
-        df.loc[df["Nom"]==nom, "Nom"] = nouveau_nom
-        df.loc[df["Prénom"]==prénom, "Prénom"] = nouveau_prénom
-        df.to_csv("data/étudiants.csv", index_label=False, index=False)
+        df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), ["Nom", "Prénom"]] = [nouveau_nom, nouveau_prénom]
+        df.to_csv("data/étudiants.csv", index_label=False, index=False, encoding="utf-8")
         print("Modification avec succée.")
         return
 
@@ -82,10 +81,9 @@ def modifier_note(df: pd.DataFrame, nom: str, prénom: str):
         nouveau_moyenne: float = saisir.moyenne()
 
         df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), "Moyenne"] = nouveau_moyenne
-        df.to_csv("data/étudiants.csv", index_label=False, index=False)
+        df.to_csv("data/étudiants.csv", index_label=False, index=False, encoding="utf-8")
         print("Modification avec succée.")
         return
-
 
 
 def supprimer_étudiants(df: pd.DataFrame) -> str:
@@ -95,7 +93,7 @@ def supprimer_étudiants(df: pd.DataFrame) -> str:
     if not étudiant_existe:
         df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index, inplace=True)
         df.reset_index(drop=True, inplace=True)
-        df.to_csv("data/étudiants.csv", index_label=False, index=False)
+        df.to_csv("data/étudiants.csv", index_label=False, index=False, incoding="utf-8")
         return f"L'etudiant {nom} {prénom} a été supprimé du tableau avec succés."
     return f"L'etudiant {nom} {prénom} n'existe pas dans la liste."
 
@@ -105,14 +103,19 @@ def filtrer_nom(df: pd.DataFrame, nom: str) -> pd.DataFrame:
 
 
 def filtrer_age(df: pd.DataFrame, min_age: int, max_age: int = 99) -> pd.DataFrame:
+    if min_age > max_age:
+        raise ValueError("L'âge minimum doit être inférieur ou égal à l'âge maximum.")
     return df[(max_age >= df["Age"]) & (df["Age"] >= min_age)]
 
 
 def filtrer_moyenne(df: pd.DataFrame, min_moyenne: float, max_moyenne: float = 20) -> pd.DataFrame:
+    if min_moyenne > max_moyenne:
+        raise ValueError("La moyenne minimum doit être inférieur ou égal à la moyenne maximum.")
     return df[(max_moyenne >= df["Moyenne"]) & (df["Moyenne"]>= min_moyenne)]
 
 
 def calculer_moyenne_génerale(df: pd.DataFrame) -> None:
     if df.empty:
         print("Aucune donnée disponible pour calculer la moyenne.")
-    print(f"La moyenne génerale est: {df["Moyenne"].mean()}")
+    else:
+        print(f"La moyenne génerale est: {df["Moyenne"].mean()}")
