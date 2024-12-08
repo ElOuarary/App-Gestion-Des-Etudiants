@@ -7,24 +7,32 @@ class Etudiant:
     """
     Représente un étudiant avec des méthodes pour modifier ses informations.
     """
-    def __init__(self, nom: str = None, prénom: str = None, age: int = None, moyenne: float =  None):
-        self.nom: str = nom if nom else saisir.nom()
-        self.prénom: str = prénom if prénom else saisir.prénom()
-        self.age: int = age if age else saisir.age()
-        self.moyenne: float = moyenne if moyenne else saisir.moyenne()
+    def __init__(self):
+        self.nom: str = saisir.nom()
+        self.prénom: str = saisir.prénom()
+        self.age: int = saisir.age()
+        self.moyenne: float = saisir.moyenne()
+
+
+    def __str__(self):
+        print(f"Nom: {self.nom}\nPrénom: {self.prénom}\nAge: {self.age}\nMoyenne: {self.moyenne}")
 
     def modifier_nom(self) -> None:
         self.nom: str = saisir.nom()
-    
+
+
     def modifier_prénom(self) -> None:
         self.prénom: str = saisir.prénom()
 
-    def modifier_nom_compet(self) -> None:
+
+    def modifier_nom_et_prénom(self) -> None:
         self.nom: str = saisir.nom()
         self.prénom: str = saisir.prénom()
 
+
     def modifier_age(self) -> None:
         self.age: int = saisir.age()
-    
+
+
     def modifier_moyenne(self) -> None:
         self.moyenne: float = saisir.moyenne()
