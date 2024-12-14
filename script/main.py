@@ -51,9 +51,9 @@ def option2(path: str) -> None:
                 interface("Affichage du tableau...", 1.5)
                 print(df)
             case "2": 
-                operation.chercher_etudiant(df)
+                operation.chercher_etudiant(path, df)
             case "3":
-                operation.chercher_note(df)
+                operation.chercher_note(path, df)
             case "4":
                 print()
                 return
@@ -72,7 +72,7 @@ def option4(path: str) -> None:
         print(f"Vous devez initialiser un tableau.\n")
         return
     df: pd.DataFrame = pd.read_excel(path)
-    operation.chercher_etudiant(df)
+    operation.chercher_etudiant(path, df)
 
 
 def option5(path: str) -> None:
@@ -106,14 +106,14 @@ def option6(path: str) -> str:
                 os.remove(path)
                 print("Tableau supprimé avec succés.\n")
             case "2":
-                operation.supprimer_étudiants(df)
+                operation.supprimer_étudiants(path, df)
             case "3":
                 print()
                 return
 
 
 def main() -> None:
-    path: str = "data/étudiants.csv" 
+    path: str = "data/étudiants.xlsx" 
     while True:
         print(
             menu_option(

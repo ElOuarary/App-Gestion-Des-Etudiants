@@ -27,21 +27,21 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
         )
         if continuer.upper() == "N":
             try:
-                df.to_csv(path, index=False, encoding="utf-8")
+                df.to_excel(path, index=False)
                 print("Données sauvegardées avec succès.")
             except Exception as e:
                 print(f"Erreur lors de la sauvegarde : {e}")
             break
 
 
-def chercher_etudiant(df: pd.DataFrame) -> None:
+def chercher_etudiant(path: str, df: pd.DataFrame) -> None:
     nom: str = saisir.nom()
     prénom: str = saisir.prénom()
     étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].empty
     if not étudiant_existe:
         print(f"{df[(df["Nom"]==nom) & (df["Prénom"]==prénom)]}")
-        modifier_étudiant(df, nom, prénom)
-        modifier_note(df, nom, prénom)
+        modifier_étudiant(path, df, nom, prénom)
+        modifier_note(path, df, nom, prénom)
     else:
         print(f"L'etudiant {nom} {prénom} n'existe pas dans le tableau.")
 
@@ -55,7 +55,7 @@ def chercher_note(df: pd.DataFrame) -> pd.DataFrame:
         print(df[df["Moyenne"]==moyenne])
 
 
-def modifier_étudiant(df: pd.DataFrame, nom: str, prénom: str):
+def modifier_étudiant(path: str, df: pd.DataFrame, nom: str, prénom: str):
     while True:
         reponce: str = saisir.valider_input(
             f"Vous voulez modifier le nom et le prénom de l'étudiant '{nom} {prénom}' [Y/N]: ",
@@ -68,12 +68,12 @@ def modifier_étudiant(df: pd.DataFrame, nom: str, prénom: str):
         nouveau_prénom: str = saisir.prénom()
 
         df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), ["Nom", "Prénom"]] = [nouveau_nom, nouveau_prénom]
-        df.to_excel("data/étudiants.csv", index=False)
+        df.to_excel(path, index=False)
         print("Modification avec succée.")
         return
 
 
-def modifier_note(df: pd.DataFrame, nom: str, prénom: str):
+def modifier_note(path: str, df: pd.DataFrame, nom: str, prénom: str):
     while True:
         reponce: str = saisir.valider_input(
             f"Vous voulez modifier la moyenne de l'étudiant '{nom} {prénom}' [Y/N]: ",
@@ -85,20 +85,21 @@ def modifier_note(df: pd.DataFrame, nom: str, prénom: str):
         nouveau_moyenne: float = saisir.moyenne()
 
         df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), "Moyenne"] = nouveau_moyenne
-        df.to_excel("data/étudiants.csv", index=False)
+        df.to_excel(path, index=False)
         print("Modification avec succée.\n")
         return
 
 
-def supprimer_étudiants(df: pd.DataFrame) -> None:
+def supprimer_étudiants(path: str, df: pd.DataFrame) -> None:
     nom: str = saisir.nom()
     prénom: str = saisir.prénom()
     étudiant_existe: bool = df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].empty
     if not étudiant_existe:
         df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index, inplace=True)
         df.reset_index(drop=True, inplace=True)
-        df.to_excel("data/étudiants.csv", index=False)
+        df.to_excel(path, index=False)
         print(f"L'etudiant {nom} {prénom} a été supprimé du tableau avec succés.\n")
+        return
     print(f"L'etudiant {nom} {prénom} n'existe pas dans la liste.\n")
 
 
