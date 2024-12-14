@@ -20,8 +20,12 @@ def ajouter_etudiants(df: pd.DataFrame, path: str) -> None:
         df = pd.concat([df, nouveau_étudiant.to_frame().T], ignore_index=True)
         print(f"Etudiant {étudiant.nom} {étudiant.prénom} a été ajouté avec succès.")
 
-        continuer = input("Appuyez sur 'Entrée' pour continuer ou une autre touche pour quitter: ")
-        if continuer.strip() != "":
+        continuer = saisir.valider_input(
+            f"Vous voulez ajouter un autre étudiant [Y/N]: ",
+            lambda x: x.upper() in ["Y", "N"],
+            "Option non validé."
+        )
+        if continuer.upper() == "N":
             try:
                 df.to_csv(path, index=False, encoding="utf-8")
                 print("Données sauvegardées avec succès.")
@@ -64,7 +68,7 @@ def modifier_étudiant(df: pd.DataFrame, nom: str, prénom: str):
         nouveau_prénom: str = saisir.prénom()
 
         df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), ["Nom", "Prénom"]] = [nouveau_nom, nouveau_prénom]
-        df.to_csv("data/étudiants.csv", index_label=False, index=False, encoding="utf-8")
+        df.to_excel("data/étudiants.csv", index=False)
         print("Modification avec succée.")
         return
 
@@ -81,7 +85,7 @@ def modifier_note(df: pd.DataFrame, nom: str, prénom: str):
         nouveau_moyenne: float = saisir.moyenne()
 
         df.loc[(df["Nom"]==nom) & (df["Prénom"]==prénom), "Moyenne"] = nouveau_moyenne
-        df.to_csv("data/étudiants.csv", index_label=False, index=False, encoding="utf-8")
+        df.to_excel("data/étudiants.csv", index=False)
         print("Modification avec succée.\n")
         return
 
@@ -93,7 +97,7 @@ def supprimer_étudiants(df: pd.DataFrame) -> None:
     if not étudiant_existe:
         df.drop(df[(df["Nom"]==nom) & (df["Prénom"]==prénom)].index, inplace=True)
         df.reset_index(drop=True, inplace=True)
-        df.to_csv("data/étudiants.csv", index_label=False, index=False, encoding="utf-8")
+        df.to_excel("data/étudiants.csv", index=False)
         print(f"L'etudiant {nom} {prénom} a été supprimé du tableau avec succés.\n")
     print(f"L'etudiant {nom} {prénom} n'existe pas dans la liste.\n")
 

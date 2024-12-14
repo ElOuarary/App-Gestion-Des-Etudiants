@@ -22,7 +22,7 @@ def option1(path: str) -> None:
     # Initialiser le dataFrame où les informations des étudiants vont être stocké
     columns: list[str] = ["Nom", "Prénom", "Age", "Moyenne"]
     df = pd.DataFrame(columns=columns)
-    df.to_csv(path, index=False)
+    df.to_excel(path, index=False)
     print(f"Le Tableau a été crée.\n")
 
 
@@ -45,7 +45,7 @@ def option2(path: str) -> None:
             "Option non validé."
         )
         
-        df: pd.DataFrame =  pd.read_csv(path)
+        df: pd.DataFrame =  pd.read_excel(path)
         match choix:
             case "1":
                 interface("Affichage du tableau...", 1.5)
@@ -63,7 +63,7 @@ def option3(path: str) -> None:
     if not os.path.exists(path):
         print(f"Vous devez initialiser un tableau.\n")
         return
-    df: pd.DataFrame = pd.read_csv(path)
+    df: pd.DataFrame = pd.read_excel(path)
     operation.ajouter_etudiants(df, path)
 
 
@@ -71,7 +71,7 @@ def option4(path: str) -> None:
     if not os.path.exists(path):
         print(f"Vous devez initialiser un tableau.\n")
         return
-    df: pd.DataFrame = pd.read_csv(path)
+    df: pd.DataFrame = pd.read_excel(path)
     operation.chercher_etudiant(df)
 
 
@@ -79,7 +79,7 @@ def option5(path: str) -> None:
     if not os.path.exists(path):
         print(f"Vous devez initialiser un tableau.\n")
         return
-    df: pd.DataFrame = pd.read_csv(path)
+    df: pd.DataFrame = pd.read_excel(path)
     operation.calculer_moyenne_génerale(df)
 
 
@@ -99,7 +99,7 @@ def option6(path: str) -> str:
             lambda x: x.isdigit() and int(x) in range(1, 4),
             "Option non validé."
         )
-        df: pd.DataFrame = pd.read_csv(path)
+        df: pd.DataFrame = pd.read_excel(path)
         match choix:
             case "1":
                 interface("Supprimage du tableau...", 1.5)
