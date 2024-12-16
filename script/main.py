@@ -53,7 +53,7 @@ def option2(path: str) -> None:
             case "2": 
                 operation.chercher_etudiant(path, df)
             case "3":
-                operation.chercher_note(path, df)
+                operation.chercher_note(df)
             case "4":
                 print()
                 return
